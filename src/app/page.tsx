@@ -1,4 +1,28 @@
+import { Metadata } from "next";
 import Image from "next/image";
+
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+  const imgUrl = `${baseUrl}/next.jpg`;
+  const metaImgUrl = `${baseUrl}/_next/image?url=${encodeURIComponent(
+    imgUrl
+  )}&w=1200&q=75`;
+
+  console.log({
+    imgUrl,
+    metaImgUrl,
+  });
+
+  return {
+    title: "Next.js Metadata URL issue",
+    openGraph: {
+      images: [metaImgUrl],
+    },
+  };
+}
 
 export default function Home() {
   return (
